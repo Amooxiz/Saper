@@ -1,5 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Saper;
 
-MapController map = new MapController();
-map.renderGrid(50, 100);
+GameController gameController = new GameController(50, 200);
+gameController.MapController.renderGrid(gameController.grid, gameController.sidelength);
+while (true)
+{
+    gameController.handleInput();
+}
