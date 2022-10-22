@@ -31,13 +31,20 @@ namespace Saper
             return grid;
         }
 
-        public void renderGrid(int sideLength, int mineAmount)
+        public void renderGrid(List<char>[,] grid, int sideLength)
         {
-            var grid = this.createGrid(sideLength, mineAmount);
-            for(int i = 0;i < sideLength;i++)
+            for(int i = 0; i < sideLength;i++)
             {
                 for(int j = 0; j < sideLength; j++)
                 {
+                    if (i == 0 && j == 0)
+                    {
+                        Console.SetCursorPosition(0, 0);
+                        Console.BackgroundColor = PixelColours.playerPosition;
+                        Console.Write(grid[0, 0].Last());
+                        Console.BackgroundColor = PixelColours.envColor;
+                        continue;
+                    }
                     Console.Write(grid[i,j].Last());
                 }
                 Console.WriteLine();
@@ -51,7 +58,10 @@ namespace Saper
                 for (int j = 0; j < sideLenght; j++)
                 {
                     if (grid[i, j].Count > 0)
+                    {
+                        grid[i, j].Add(ConstantEnviromentElements.unexploredField);
                         continue;
+                    }
 
                     int sum = 0;
                     if (i - 1 >= 0 && grid[i - 1, j].Count > 0)
@@ -127,6 +137,7 @@ namespace Saper
                         default:
                             break;
                     }
+                    grid[i, j].Add(ConstantEnviromentElements.unexploredField);
                 }
             }
         }
