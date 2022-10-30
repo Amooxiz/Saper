@@ -1,9 +1,18 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿
 using Saper;
+using System.Diagnostics;
+using System.Threading;
 
-GameController gameController = new GameController(50, 200);
-gameController.MapController.renderGrid(gameController.grid, gameController.sidelength);
+Console.Title = "Minesweeper";
+
+MenuController menu = new MenuController();
+
+Console.SetCursorPosition(47, 10);
+Console.WriteLine("Please enter your nickname");
+Console.SetCursorPosition(52, 12);
+GlobalAccessClass.nick = Console.ReadLine();
+menu.printMenu();
 while (true)
 {
-    gameController.handleInput();
+    menu.startMenu();
 }

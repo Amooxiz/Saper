@@ -6,15 +6,8 @@ using System.Threading.Tasks;
 
 namespace Saper
 {
-    internal enum InputPossibilities
+    public static class CursorLock
     {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        UNCOVER,
-        MARK,
-        NONE,
-        ENTER
+        public static readonly object Lock = new object();
     }
 }

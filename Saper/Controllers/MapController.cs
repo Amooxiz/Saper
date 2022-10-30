@@ -25,7 +25,7 @@ namespace Saper
             var mineLocations = allPossiblePositions.OrderBy(x => random.Next()).Take(mineAmount);
             foreach(Position position in mineLocations)
             {
-                grid[position.x, position.y].Add(ConstantEnviromentElements.mineField);
+                grid[position.y, position.x].Add(ConstantEnviromentElements.mineField);
             }
             this.calculateFields(grid, sideLength);
             return grid;
@@ -33,21 +33,28 @@ namespace Saper
 
         public void renderGrid(List<char>[,] grid, int sideLength)
         {
-            for(int i = 0; i < sideLength;i++)
+            for(int i = 14; i < sideLength + 14;i++)
             {
-                for(int j = 0; j < sideLength; j++)
+                for(int j = 17; j < sideLength + 17; j++)
                 {
-                    if (i == 0 && j == 0)
+                    if (i == 14 && j == 17)
                     {
-                        Console.SetCursorPosition(0, 0);
+                        Console.SetCursorPosition(17, 14);
                         Console.BackgroundColor = PixelColours.playerPosition;
                         Console.Write(grid[0, 0].Last());
                         Console.BackgroundColor = PixelColours.envColor;
                         continue;
                     }
-                    Console.Write(grid[i,j].Last());
+                    else if (j == 17)
+                    {
+                        Console.Write(grid[i - 14, j - 17].Last());
+                    }
+                    else
+                    {
+                        Console.Write("   " + grid[i - 14, j - 17].Last());
+                    }
                 }
-                Console.WriteLine();
+                Console.SetCursorPosition(17, Console.CursorTop + 2);
             }
         }
 
@@ -66,42 +73,42 @@ namespace Saper
                     int sum = 0;
                     if (i - 1 >= 0 && grid[i - 1, j].Count > 0)
                     {
-                        if (grid[i - 1, j].LastOrDefault() == ConstantEnviromentElements.mineField)
+                        if (grid[i - 1, j].Contains(ConstantEnviromentElements.mineField))
                             sum++;
                     }
                     if (i + 1 < sideLenght && grid[i + 1, j].Count > 0)
                     {
-                        if (grid[i + 1, j].LastOrDefault() == ConstantEnviromentElements.mineField)
+                        if (grid[i + 1, j].Contains(ConstantEnviromentElements.mineField))
                             sum++;
                     }
                     if (j - 1 >= 0 && grid[i, j - 1].Count > 0)
                     {
-                         if (grid[i, j - 1].LastOrDefault() == ConstantEnviromentElements.mineField)
+                         if (grid[i, j - 1].Contains(ConstantEnviromentElements.mineField))
                             sum++;
                     }
                     if (j + 1 < sideLenght && grid[i, j + 1].Count > 0)
                     {
-                        if (grid[i, j + 1].LastOrDefault() == ConstantEnviromentElements.mineField)
+                        if (grid[i, j + 1].Contains(ConstantEnviromentElements.mineField))
                             sum++;
                     }
                     if ((i - 1 >= 0 && j - 1 >= 0) && grid[i - 1, j - 1].Count > 0)
                     {
-                        if (grid[i - 1, j - 1].LastOrDefault() == ConstantEnviromentElements.mineField)
+                        if (grid[i - 1, j - 1].Contains(ConstantEnviromentElements.mineField))
                             sum++;
                     }
                     if ((i + 1 < sideLenght && j + 1 < sideLenght) && grid[i + 1, j + 1].Count > 0)
                     {
-                        if (grid[i + 1, j + 1].LastOrDefault() == ConstantEnviromentElements.mineField)
+                        if (grid[i + 1, j + 1].Contains(ConstantEnviromentElements.mineField))
                             sum++;
                     }
                     if ((i - 1 >= 0 && j + 1 < sideLenght) && grid[i - 1, j + 1].Count > 0)
                     {
-                        if (grid[i - 1, j + 1].LastOrDefault() == ConstantEnviromentElements.mineField)
+                        if (grid[i - 1, j + 1].Contains(ConstantEnviromentElements.mineField))
                             sum++;
                     }
                     if ((i + 1 < sideLenght && j - 1 >= 0) && grid[i + 1, j - 1].Count > 0)
                     {
-                        if (grid[i + 1, j - 1].LastOrDefault() == ConstantEnviromentElements.mineField)
+                        if (grid[i + 1, j - 1].Contains(ConstantEnviromentElements.mineField))
                             sum++;
                     }
 

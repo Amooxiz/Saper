@@ -10,5 +10,6 @@ namespace Saper
     {
         public const ConsoleColor playerPosition = ConsoleColor.Red;
         public const ConsoleColor envColor = ConsoleColor.Black;
+        public const ConsoleColor basicTextColour = ConsoleColor.Yellow;
     }
 }

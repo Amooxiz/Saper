@@ -34,6 +34,9 @@ namespace Saper
                 case ConsoleKey.X:
                     input.InputPossibilities = InputPossibilities.UNCOVER;
                     break;
+                case ConsoleKey.Enter:
+                    input.InputPossibilities = InputPossibilities.ENTER;
+                    break;
                 default:
                     input.InputPossibilities = InputPossibilities.NONE;
                     break;
