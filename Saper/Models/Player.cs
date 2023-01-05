@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Saper
 {
-    internal class Player
+    public class Player
     {
         internal Position _position = new(0, 0);
 

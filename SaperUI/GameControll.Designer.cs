@@ -28,29 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pGame = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // pGame
-            // 
-            this.pGame.Location = new System.Drawing.Point(28, 22);
-            this.pGame.Name = "pGame";
-            this.pGame.Size = new System.Drawing.Size(200, 100);
-            this.pGame.TabIndex = 0;
             // 
             // GameControll
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pGame);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "GameControll";
-            this.Size = new System.Drawing.Size(651, 597);
+            this.Size = new System.Drawing.Size(744, 796);
+            this.Load += new System.EventHandler(this.GameControll_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Panel pGame;
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Saper
 {
-    internal static class GlobalAccessClass
+    public static class GlobalAccessClass
     {
         public static bool isFinished = false;
         public static bool isWin = false;

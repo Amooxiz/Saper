@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Saper
 {
-    internal class ConstantEnviromentElements
+    public class ConstantEnviromentElements
     {
-        internal const char unexploredField = '?';
-        internal const char emptyField = ' ';
-        internal const char mineMarkedField = '@';
-        internal const char mineField = '+';
-        internal const char one = '1';
-        internal const char two = '2';
-        internal const char three = '3';
-        internal const char four = '4';
-        internal const char five = '5';
-        internal const char six = '6';
-        internal const char seven = '7';
-        internal const char eight = '8';
+        public const char unexploredField = '?';
+        public const char emptyField = ' ';
+        public const char mineMarkedField = '@';
+        public const char mineField = '+';
+        public const char one = '1';
+        public const char two = '2';
+        public const char three = '3';
+        public const char four = '4';
+        public const char five = '5';
+        public const char six = '6';
+        public const char seven = '7';
+        public const char eight = '8';
     }
 }
