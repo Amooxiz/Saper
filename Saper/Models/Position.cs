@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Saper
 {
-    internal class Position
+    public class Position
     {
-        internal int x { get; set; }
-        internal int y { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
 
         public Position(int x, int y)
         {

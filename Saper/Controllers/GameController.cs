@@ -7,7 +7,7 @@ using System.Media;
 
 namespace Saper
 {
-    internal class GameController
+    public class GameController
     {
         public SoundPlayer winPlayer = new SoundPlayer(Path.GetFullPath(ConstPaths.winSound));
         public SoundPlayer loosePlayer = new SoundPlayer(Path.GetFullPath(ConstPaths.explosionSound));
@@ -33,9 +33,11 @@ namespace Saper
         public string[] winn = Reader.readFromFile(ConstPaths.win);
 
         public bool endFlag = false;
+        public bool isGUI = false;
 
-        public GameController(int diffLevel)
+        public GameController(int diffLevel, bool isGUI = false)
         {
+            this.isGUI = isGUI;
             switch (diffLevel)
             {
                 case 0:
@@ -138,12 +140,20 @@ namespace Saper
             movePlayer.Play();
         }
 
-        private void mark()
+        public dynamic? mark(int x = -1, int y = -1)
         {
+            if (x >= 0 && y >= 0)
+            {
+                this.player._position.x = x;
+                this.player._position.y = y;
+            }
             if (grid[player._position.y, player._position.x].Last() == ConstantEnviromentElements.unexploredField)
             {
                 grid[player._position.y, player._position.x].Add(ConstantEnviromentElements.mineMarkedField);
                 mineSecuredCounter++;
+
+                if (isGUI)
+                    return ConstantEnviromentElements.mineMarkedField;
 
                 printChar(ConstantEnviromentElements.mineMarkedField, PixelColours.playerPosition,
                     new Position(this.player._position.x + (this.player._position.x * 3) + 17, (this.player._position.y * 2) + 14));
@@ -154,9 +164,13 @@ namespace Saper
                 grid[player._position.y, player._position.x].RemoveAt(grid[player._position.y, player._position.x].Count - 1);
                 mineSecuredCounter--;
 
+                if (isGUI)
+                    return ConstantEnviromentElements.unexploredField;
+
                 printChar(ConstantEnviromentElements.unexploredField, PixelColours.playerPosition,
                     new Position(this.player._position.x + (this.player._position.x * 3) + 17, (this.player._position.y * 2) + 14));
             }
+            return null;
         }
 
         private void win()
@@ -191,72 +205,96 @@ namespace Saper
             GlobalAccessClass.isWin = true;
         }
 
-        private void uncover()
+        public dynamic? uncover(int optionalX = -1, int optionalY = -1)
         {
+            if (optionalX >= 0 && optionalY >= 0)
+            {
+                player._position.x = optionalX;
+                player._position.y = optionalY;
+            }
             if (grid[player._position.y, player._position.x].Last() == ConstantEnviromentElements.unexploredField)
             {
                 switch (grid[player._position.y, player._position.x].ElementAt(grid[player._position.y, player._position.x].Count - 2))
                 {
                     case ConstantEnviromentElements.mineField:
+                        if (isGUI)
+                            return ConstantEnviromentElements.mineField;
                         gameOver();
                         break;
                     case ConstantEnviromentElements.emptyField:
+                        if (isGUI)
+                        {
+                            List<Position> list = new List<Position>();
+                            uncoverRec(player._position, list);
+                            return list;
+                        }
                         lock (CursorLock.Lock)
                             uncoverRec(player._position);
                         uncoverRecPlayer.Play();
                         break;
                     default: // number Field
                         uncover(player._position);
+                        if (isGUI)
+                            return grid[player._position.y, player._position.x].Last();
+
                         break;
                 }
             }
+            return null;
         }
 
         private void uncover(Position position)
         {
             grid[position.y, position.x].RemoveAt(grid[position.y, position.x].Count - 1);
             openedPoolsCounter++;
-            printChar(grid[position.y, position.x].Last(), PixelColours.playerPosition,
-                new Position(position.x + (position.x * 3) + 17, (position.y * 2) + 14));
+            if (!isGUI)
+                printChar(grid[position.y, position.x].Last(), PixelColours.playerPosition,
+                    new Position(position.x + (position.x * 3) + 17, (position.y * 2) + 14));
         }
 
-        private void uncoverRec(Position position)
+        private void uncoverRec(Position position, List<Position>? positions = null)
         {
             grid[position.y, position.x].RemoveAt(grid[position.y, position.x].Count - 1);
             openedPoolsCounter++;
+            if (positions != null)
+                positions.Add(position);
 
-            if (position.x == player._position.x && position.y == player._position.y)
+            if (!isGUI)
             {
+                if (position.x == player._position.x && position.y == player._position.y)
+                {
 
-                printChar(grid[position.y, position.x].Last(), PixelColours.playerPosition,
-                    new Position(position.x + (position.x * 3) + 17, (position.y * 2) + 14));
-            }
-            else if (grid[position.y, position.x].Count > 0)
-            {
+                    printChar(grid[position.y, position.x].Last(), PixelColours.playerPosition,
+                        new Position(position.x + (position.x * 3) + 17, (position.y * 2) + 14));
+                }
+                else if (grid[position.y, position.x].Count > 0)
+                {
 
-                printChar(grid[position.y, position.x].Last(), PixelColours.envColor,
-                    new Position(position.x + (position.x * 3) + 17, (position.y * 2) + 14));
+                    printChar(grid[position.y, position.x].Last(), PixelColours.envColor,
+                        new Position(position.x + (position.x * 3) + 17, (position.y * 2) + 14));
+                }
             }
+            
 
             if (grid[position.y, position.x].LastOrDefault() != ConstantEnviromentElements.emptyField)
                 return;
 
             if (position.y > 0 && grid[position.y - 1, position.x].Contains(ConstantEnviromentElements.unexploredField))
-                uncoverRec(new Position(position.x, position.y - 1));
+                uncoverRec(new Position(position.x, position.y - 1), positions);
             if (position.y < sidelength - 1 && grid[position.y + 1, position.x].Contains(ConstantEnviromentElements.unexploredField))
-                uncoverRec(new Position(position.x, position.y + 1));
+                uncoverRec(new Position(position.x, position.y + 1), positions);
             if (position.y > 0 && position.x < sidelength - 1 && grid[position.y - 1, position.x + 1].Contains(ConstantEnviromentElements.unexploredField))
-                uncoverRec(new Position(position.x + 1, position.y - 1));
+                uncoverRec(new Position(position.x + 1, position.y - 1), positions);
             if (position.y < sidelength - 1 && position.x > 0 && grid[position.y + 1, position.x - 1].Contains(ConstantEnviromentElements.unexploredField))
-                uncoverRec(new Position(position.x - 1, position.y + 1));
+                uncoverRec(new Position(position.x - 1, position.y + 1), positions);
             if (position.x < sidelength - 1 && grid[position.y, position.x + 1].Contains(ConstantEnviromentElements.unexploredField))
-                uncoverRec(new Position(position.x + 1, position.y));
+                uncoverRec(new Position(position.x + 1, position.y), positions);
             if (position.x > 0 && grid[position.y, position.x - 1].Contains(ConstantEnviromentElements.unexploredField))
-                uncoverRec(new Position(position.x - 1, position.y));
+                uncoverRec(new Position(position.x - 1, position.y), positions);
             if (position.y > 0 && position.x > 0 && grid[position.y - 1, position.x - 1].Contains(ConstantEnviromentElements.unexploredField))
-                uncoverRec(new Position(position.x - 1, position.y - 1));
+                uncoverRec(new Position(position.x - 1, position.y - 1), positions);
             if (position.y < sidelength - 1 && position.x < sidelength - 1 && grid[position.y + 1, position.x + 1].Contains(ConstantEnviromentElements.unexploredField))
-                uncoverRec(new Position(position.x + 1, position.y + 1));
+                uncoverRec(new Position(position.x + 1, position.y + 1), positions);
 
             return;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Saper
 {
-    internal class MapController
+    public class MapController
     {
         public List<char>[,] createGrid(int sideLength, int mineAmount)
         {
