@@ -16,6 +16,7 @@ namespace Saper
         public static string nick;
         public static string time;
         public static long ms;
-
+        public static List<Position> minePositions;
+        public static int msToTime;
     }
 }

@@ -23,6 +23,7 @@ namespace Saper
             }
             Random random = new Random();
             var mineLocations = allPossiblePositions.OrderBy(x => random.Next()).Take(mineAmount);
+            GlobalAccessClass.minePositions = mineLocations.ToList();
             foreach(Position position in mineLocations)
             {
                 grid[position.y, position.x].Add(ConstantEnviromentElements.mineField);
