@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Saper
 {
-    internal class rankingModel
+    public class rankingModel
     {
         public string nick;
         public string time;
@@ -19,7 +19,7 @@ namespace Saper
         }
     }
 
-    internal static class rankingController
+    public static class rankingController
     {
         public static List<rankingModel> getRanking(string path)
         {

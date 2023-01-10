@@ -31,7 +31,8 @@ namespace SaperUI
         private void timer1_Tick(object sender, EventArgs e)
         {
             saperForm saperForm = (saperForm)this.Parent;
-            this.timerLabel.Text = string.Format("{0:hh\\:mm\\:ss\\:fff}", saperForm.stopwatch.Elapsed);
+            if (saperForm != null)
+                this.timerLabel.Text = string.Format("{0:hh\\:mm\\:ss\\:fff}", saperForm.stopwatch.Elapsed);
         }
     }
 }

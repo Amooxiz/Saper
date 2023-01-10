@@ -255,6 +255,10 @@ namespace Saper
         private void uncoverRec(Position position, List<Position>? positions = null)
         {
             grid[position.y, position.x].RemoveAt(grid[position.y, position.x].Count - 1);
+
+            if (grid[position.y, position.x].Last() == ConstantEnviromentElements.unexploredField)
+                grid[position.y, position.x].RemoveAt(grid[position.y, position.x].Count - 1);
+
             openedPoolsCounter++;
             if (positions != null)
                 positions.Add(position);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Saper
 {
-    internal static class ConstPaths
+    public static class ConstPaths
     {
         public static string controls = Path.GetFullPath("controls.txt");
         public static string easyRank = Path.GetFullPath("easyRanking.txt");

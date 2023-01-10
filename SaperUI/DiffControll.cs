@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Saper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,71 +31,131 @@ namespace SaperUI
 
         private void easyPB_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
             saperForm saperForm = (saperForm)this.Parent;
             saperForm.diffLevel = 0;
+            GlobalAccessClass.diffLevel = 0;
 
             if (!saperForm.Controls.Contains(GameControll.Instance))
             {
                 saperForm.Controls.Add(GameControll.Instance);
-                GameControll.Instance.Dock = DockStyle.Fill;
+                //GameControll.Instance.Dock = DockStyle.Bottom;
+                GameControll.Instance.BringToFront();
+                GameControll.Instance.Left = 200;
+                GameControll.Instance.Top = 170;
+                GameControll.Instance.Anchor = AnchorStyles.Top;
+            }
+            else
+            {
+                GameControll.Instance.RestartGame();
+                GameControll.Instance.Visible = true;
                 GameControll.Instance.BringToFront();
             }
-            GameControll.Instance.BringToFront();
+            
 
-            saperForm.stopwatch.Start();
             if (!saperForm.Controls.Contains(TimerControll.Instance))
             {
                 saperForm.Controls.Add(TimerControll.Instance);
-                TimerControll.Instance.Dock = DockStyle.Bottom;
+                //TimerControll.Instance.Dock = DockStyle.Top;
+                TimerControll.Instance.BringToFront();
+                TimerControll.Instance.Left = 210;
+                TimerControll.Instance.Anchor = AnchorStyles.Top;
+            }
+            else
+            {
+                TimerControll.Instance.Visible = true;
                 TimerControll.Instance.BringToFront();
             }
-            TimerControll.Instance.BringToFront();
+
+            saperForm.Controls["restartPB"].Visible = true;
+            saperForm.Controls["backPB"].Visible = true;
+            saperForm.stopwatch.Start();
         }
 
         private void mediumPB_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
             saperForm saperForm = (saperForm)this.Parent;
             saperForm.diffLevel = 1;
+            GlobalAccessClass.diffLevel = 1;
 
             if (!saperForm.Controls.Contains(GameControll.Instance))
             {
                 saperForm.Controls.Add(GameControll.Instance);
-                GameControll.Instance.Dock = DockStyle.Fill;
+                //GameControll.Instance.Dock = DockStyle.Bottom;
+                GameControll.Instance.BringToFront();
+                GameControll.Instance.Left = 200;
+                GameControll.Instance.Top = 170;
+                GameControll.Instance.Anchor = AnchorStyles.Top;
+            }
+            else
+            {
+                GameControll.Instance.RestartGame();
+                GameControll.Instance.Visible = true;
                 GameControll.Instance.BringToFront();
             }
-            GameControll.Instance.BringToFront();
 
-            saperForm.stopwatch.Start();
+
             if (!saperForm.Controls.Contains(TimerControll.Instance))
             {
                 saperForm.Controls.Add(TimerControll.Instance);
-                TimerControll.Instance.Dock = DockStyle.Bottom;
+                //TimerControll.Instance.Dock = DockStyle.Top;
+                TimerControll.Instance.BringToFront();
+                TimerControll.Instance.Left = 210;
+                TimerControll.Instance.Anchor = AnchorStyles.Top;
+            }
+            else
+            {
+                TimerControll.Instance.Visible = true;
                 TimerControll.Instance.BringToFront();
             }
-            TimerControll.Instance.BringToFront();
+
+            saperForm.Controls["restartPB"].Visible = true;
+            saperForm.Controls["backPB"].Visible = true;
+            saperForm.stopwatch.Start();
         }
 
         private void hardPB_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
             saperForm saperForm = (saperForm)this.Parent;
             saperForm.diffLevel = 2;
+            GlobalAccessClass.diffLevel = 2;
 
             if (!saperForm.Controls.Contains(GameControll.Instance))
             {
                 saperForm.Controls.Add(GameControll.Instance);
-                GameControll.Instance.Dock = DockStyle.Fill;
+                //GameControll.Instance.Dock = DockStyle.Bottom;
+                GameControll.Instance.BringToFront();
+                GameControll.Instance.Left = 200;
+                GameControll.Instance.Top = 170;
+                GameControll.Instance.Anchor = AnchorStyles.Top;
+            }
+            else
+            {
+                GameControll.Instance.RestartGame();
+                GameControll.Instance.Visible = true;
                 GameControll.Instance.BringToFront();
             }
-            GameControll.Instance.BringToFront();
 
-            saperForm.stopwatch.Start();
+
             if (!saperForm.Controls.Contains(TimerControll.Instance))
             {
                 saperForm.Controls.Add(TimerControll.Instance);
-                TimerControll.Instance.Dock = DockStyle.Bottom;
+                //TimerControll.Instance.Dock = DockStyle.Top;
+                TimerControll.Instance.BringToFront();
+                TimerControll.Instance.Left = 210;
+                TimerControll.Instance.Anchor = AnchorStyles.Top;
+            }
+            else
+            {
+                TimerControll.Instance.Visible = true;
                 TimerControll.Instance.BringToFront();
             }
-            TimerControll.Instance.BringToFront();
+
+            saperForm.Controls["restartPB"].Visible = true;
+            saperForm.Controls["backPB"].Visible = true;
+            saperForm.stopwatch.Start();
         }
 
         private void easyPB_MouseHover(object sender, EventArgs e)
